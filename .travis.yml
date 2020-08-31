@@ -26,21 +26,9 @@ matrix:
       compiler: gcc
       env: CONFIGURE_OPTS="--with-cpu=no"
 
-jobs:
-  include:
-    - stage: "configure"
-      script:
-        - mkdir $(pwd)/install
-        - CFLAGS="$CFLAGS_COMMON" ./configure $CONFIGURE_OPTS --prefix=$(pwd)/install
-    - stage: "make"
-      script:
-        - make
-	- make install
-    - stage: "check"
-      script:
-        - make check
-
-stages:
-  - configure
+script:
+  - mkdir $(pwd)/install
+  - CFLAGS="$CFLAGS_COMMON" ./configure $CONFIGURE_OPTS --prefix=$(pwd)/install
   - make
-  - check
+  - make install
+  - make check
