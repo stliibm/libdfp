@@ -1,7 +1,7 @@
 dist: focal
 language: c
 
-env: CFLAGS_COMMON="-O3 -Wextra -Werror"
+env: CFLAGS="-O2 -Wextra -Werror"
 
 matrix:
   include:
@@ -9,26 +9,29 @@ matrix:
       os: linux
       arch: amd64
       compiler: gcc
+      env: CFLAGS="-O3 -Wextra -Werror"
     - name: "linux-ppc64le-gcc"
       os: linux-ppc64le
       compiler: gcc
-    - name: "linux-ppc64le-gcc"
+      env: CFLAGS="-O3 -Wextra -Werror"
+    - name: "linux-ppc64le-gcc-sw"
       os: linux-ppc64le
       compiler: gcc
-      env: CONFIGURE_OPTS="--with-cpu=no"
+      env: CONFIGURE_OPTS="--with-cpu=no" CFLAGS="-O3 -Wextra -Werror"
     - name: "linux-s390x-gcc"
       os: linux
       arch: s390x
       compiler: gcc
+      env: CFLAGS="-O3 -Wextra -Werror"
     - name: "linux-s390x-gcc-sw"
       os: linux
       arch: s390x
       compiler: gcc
-      env: CONFIGURE_OPTS="--with-cpu=no"
+      env: CONFIGURE_OPTS="--with-cpu=no" CFLAGS="-O3 -Wextra -Werror"
 
 script:
   - mkdir $(pwd)/install
-  - CFLAGS="$CFLAGS_COMMON" ./configure $CONFIGURE_OPTS --prefix=$(pwd)/install
+  - ./configure $CONFIGURE_OPTS --prefix=$(pwd)/install
   - make
   - make install
   - make check
