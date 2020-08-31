@@ -1,12 +1,7 @@
 dist: focal
 language: c
 
-os: linux
-arch: s390x
-compiler: gcc
-
-env:
-  - CFLAGS_COMMON="-O3 -Wextra -Werror"
+env: CFLAGS_COMMON="-O3 -Wextra -Werror"
 
 matrix:
   include:
@@ -36,13 +31,14 @@ jobs:
     - stage: "configure"
       script:
         - mkdir $(pwd)/install
-        -  CFLAGS="$CFLAGS_COMMON" ./configure $CONFIGURE_OPTS --prefix=$(pwd)/install
+        - CFLAGS="$CFLAGS_COMMON" ./configure $CONFIGURE_OPTS --prefix=$(pwd)/install
     - stage: "make"
       script:
         - make
 	- make install
     - stage: "check"
-      script: make check
+      script:
+        - make check
 
 stages:
   - configure
