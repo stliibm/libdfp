@@ -3,14 +3,14 @@ language: c
 
 matrix:
     include:
-	- name: "linux-s390x-gcc"
-	  os: linux
-	  arch: s390x
-	  compiler: gcc
+        - name: "linux-s390x-gcc"
+            os: linux
+            arch: s390x
+            compiler: gcc
 
 script:
-	- mkdir $(pwd)/install
-	- ./configure --prefix=$(pwd)/install
-	- make
-	- make install
-	- make check
+    - mkdir $(pwd)/install
+    - ./configure --prefix=$(pwd)/install
+    - make
+    - make install
+    - make check
