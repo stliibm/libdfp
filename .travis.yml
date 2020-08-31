@@ -6,35 +6,45 @@ arch: s390x
 compiler: gcc
 
 env:
-    - CFLAGS="-O3 -Wextra -pedantic -Werror"
-    - CONFIGURE_OPTS=""
+  - CFLAGS_COMMON="-O3 -Wextra -Werror"
 
 matrix:
-    include:
-        - name: "linux-amd64-gcc"
-          os: linux
-          arch: amd64
-          compiler: gcc
-        - name: "linux-ppc64le-gcc"
-          os: linux-ppc64le
-          compiler: gcc
-        - name: "linux-ppc64le-gcc"
-          os: linux-ppc64le
-          compiler: gcc
-          env: CONFIGURE_OPTS="--with-cpu=no"
-        - name: "linux-s390x-gcc"
-          os: linux
-          arch: s390x
-          compiler: gcc
-        - name: "linux-s390x-gcc-sw"
-          os: linux
-          arch: s390x
-          compiler: gcc
-          env: CONFIGURE_OPTS="--with-cpu=no"
+  include:
+    - name: "linux-amd64-gcc"
+      os: linux
+      arch: amd64
+      compiler: gcc
+    - name: "linux-ppc64le-gcc"
+      os: linux-ppc64le
+      compiler: gcc
+    - name: "linux-ppc64le-gcc"
+      os: linux-ppc64le
+      compiler: gcc
+      env: CONFIGURE_OPTS="--with-cpu=no"
+    - name: "linux-s390x-gcc"
+      os: linux
+      arch: s390x
+      compiler: gcc
+    - name: "linux-s390x-gcc-sw"
+      os: linux
+      arch: s390x
+      compiler: gcc
+      env: CONFIGURE_OPTS="--with-cpu=no"
 
-script:
-    - mkdir $(pwd)/install
-    - ./configure --prefix=$(pwd)/install ${CONFIGURE_OPTS}
-    - make
-    - make install
-    - make check
+jobs:
+  include:
+    - stage: "configure"
+      script:
+        - mkdir $(pwd)/install
+        -  CFLAGS="$CFLAGS_COMMON" ./configure $CONFIGURE_OPTS --prefix=$(pwd)/install
+    - stage: "make"
+      script:
+        - make
+	- make install
+    - stage: "check"
+      script: make check
+
+stages:
+  - configure
+  - make
+  - check
