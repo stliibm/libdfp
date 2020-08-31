@@ -1,12 +1,9 @@
 dist: focal
 language: c
 
-matrix:
-    include:
-        - name: "linux-s390x-gcc"
-            os: linux
-            arch: s390x
-            compiler: gcc
+os: linux
+arch: s390x
+compiler: gcc
 
 script:
     - mkdir $(pwd)/install
