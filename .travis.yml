@@ -7,12 +7,12 @@ matrix:
       os: linux
       arch: s390x
       compiler: gcc
-      env: CFLAGS="-O2 -Wextra -Werror"
+      env: CFLAGS="-O2"
     - name: "linux-s390x-gcc-sw"
       os: linux
       arch: s390x
       compiler: gcc
-      env: CONFIGURE_OPTS="--with-cpu=no" CFLAGS="-O2 -Wextra -Werror"
+      env: CONFIGURE_OPTS="--with-cpu=no" CFLAGS="-O2"
 
 script:
   - mkdir $(pwd)/install
