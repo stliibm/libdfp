@@ -1,37 +1,22 @@
 dist: focal
 language: c
 
-env: CFLAGS="-O2 -Wextra -Werror"
-
 matrix:
   include:
-    - name: "linux-amd64-gcc"
-      os: linux
-      arch: amd64
-      compiler: gcc
-      env: CFLAGS="-O3 -Wextra -Werror"
-    - name: "linux-ppc64le-gcc"
-      os: linux-ppc64le
-      compiler: gcc
-      env: CFLAGS="-O3 -Wextra -Werror"
-    - name: "linux-ppc64le-gcc-sw"
-      os: linux-ppc64le
-      compiler: gcc
-      env: CONFIGURE_OPTS="--with-cpu=no" CFLAGS="-O3 -Wextra -Werror"
     - name: "linux-s390x-gcc"
       os: linux
       arch: s390x
       compiler: gcc
-      env: CFLAGS="-O3 -Wextra -Werror"
+      env: CFLAGS="-O2 -Wextra -Werror"
     - name: "linux-s390x-gcc-sw"
       os: linux
       arch: s390x
       compiler: gcc
-      env: CONFIGURE_OPTS="--with-cpu=no" CFLAGS="-O3 -Wextra -Werror"
+      env: CONFIGURE_OPTS="--with-cpu=no" CFLAGS="-O2 -Wextra -Werror"
 
 script:
   - mkdir $(pwd)/install
   - ./configure $CONFIGURE_OPTS --prefix=$(pwd)/install
-  - make
+  - make -j $(nproc)
   - make install
-  - make check
+  - make -j $(nproc) check
