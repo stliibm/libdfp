@@ -3,6 +3,26 @@ language: c
 
 matrix:
   include:
+    - name: "linux-amd64-gcc"
+      os: linux
+      arch: amd64
+      compiler: gcc
+      env: CFLAGS="-O2"
+    - name: "linux-amd64-gcc-sw"
+      os: linux
+      arch: amd64
+      compiler: gcc
+      env: CONFIGURE_OPTS="--with-cpu=no" CFLAGS="-O2"
+    - name: "linux-ppc64le-gcc"
+      os: linux
+      arch: ppc64le
+      compiler: gcc
+      env: CFLAGS="-O2"
+    - name: "linux-ppc64le-gcc-sw"
+      os: linux
+      arch: ppc64le
+      compiler: gcc
+      env: CONFIGURE_OPTS="--with-cpu=no" CFLAGS="-O2"
     - name: "linux-s390x-gcc"
       os: linux
       arch: s390x
