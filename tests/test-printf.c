@@ -47,7 +47,7 @@ typedef struct{
 d32_type printf_d32s[] =
 {
   /* Default precision.  */
-  {__LINE__, 0.1004E-4DF, "0.00000004", "%.8Hf"},
+  {__LINE__, 0.0004E-4DF, "0.00000004", "%.8Hf"},
   {__LINE__, 123.456E-6DF, "0.000123", "%Hf"},
   {__LINE__, 123.456E-6DF, "1.234560e-04", "%He"},
   {__LINE__, 12.0E-15DF, "0.000000", "%Hf"},
